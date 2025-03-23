@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# intellij-idea-plugin Changelog
+# PHP Xpath Changelog
 
 ## [Unreleased]
 ### Added

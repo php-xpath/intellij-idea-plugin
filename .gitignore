@@ -4,3 +4,4 @@
 .intellijPlatform
 .qodana
 build
+.env
