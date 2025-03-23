@@ -16,4 +16,14 @@
                 class="com.github.xepozz.php.xpath.listeners.MyApplicationActivationListener"
                 topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
+
+    <actions>
+        <action id="XPath.ShowXpathAlertAction" popup="false"
+                class="com.github.xepozz.php.xpath.ide.actions.ShowXpathAlertAction"
+                text="Copy XPath"
+                description="Shows XPath for the current element">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="CutCopyPasteGroup" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
