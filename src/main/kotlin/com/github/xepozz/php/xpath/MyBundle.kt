@@ -1,4 +1,4 @@
-package com.github.xepozz.intellijideaplugin
+package com.github.xepozz.php.xpath
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
