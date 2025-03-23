@@ -9,6 +9,8 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <editorFactoryMouseListener
+                implementation="com.github.xepozz.php.xpath.listeners.EditorMouseClickListener"/>
     </extensions>
 
     <applicationListeners>
