@@ -8,6 +8,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IFileElementType
 import com.jetbrains.php.lang.parser.PhpElementTypes
 import com.jetbrains.php.lang.psi.elements.Field
+import com.jetbrains.php.lang.psi.elements.Method
 import com.jetbrains.php.lang.psi.elements.PhpClass
 import com.jetbrains.php.lang.psi.elements.PhpNamedElement
 import java.util.*
@@ -40,30 +41,42 @@ object XPathUtil {
                     continue
                 }
                 val xpathPart = when (node.elementType) {
-                    PhpElementTypes.CLASS_METHOD -> "method[@name='$elementName']$position"
+                    PhpElementTypes.CLASS_METHOD -> {
+                        val currentElement = currentElement as Method
+//                        "method[@name='$elementName']$position"
+                        "${currentElement.name}()"
+                    }
                     PhpElementTypes.CLASS_CONST -> {
                         val currentElement = currentElement as Field
-                        "constant[@name='${currentElement.name}']$position"
+//                        "constant[@name='${currentElement.name}']$position"
+                        "${currentElement.name}"
                     }
 
-                    PhpElementTypes.CLASS_FIELD -> {
+                    PhpElementTypes.CLASS_FIELD,
+                    PhpElementTypes.NOT_PROMOTED_PARAMETER,
+                    PhpElementTypes.PROMOTED_FIELD_PARAMETER
+                         -> {
                         val currentElement = currentElement as Field
-                        "property[@name='${currentElement.name}']$position"
+//                        "property[@name='${currentElement.name}']$position"
+                        "$${currentElement.name}"
                     }
 
                     PhpElementTypes.CLASS -> {
                         val currentElement = currentElement as PhpClass
-                        "class[@name='${currentElement.name}']$position"
+//                        "class[@name='${currentElement.name}']$position"
+                        "${currentElement.name}"
                     }
 
                     PhpElementTypes.NAMESPACE -> {
                         val currentElement = currentElement as PhpNamedElement
-                        "namespace[@name='${currentElement.fqn}']$position"
+//                        "namespace[@name='${currentElement.fqn}']$position"
+                        "${currentElement.fqn}"
                     }
 
                     PhpElementTypes.VARIABLE -> {
                         val currentElement = currentElement as com.jetbrains.php.lang.psi.elements.Variable
-                        "variable[@name='${currentElement.name}']$position"
+//                        "variable[@name='${currentElement.name}']$position"
+                        "$${currentElement.name}"
                     }
 
                     is IFileElementType,
@@ -73,6 +86,7 @@ object XPathUtil {
                     PhpElementTypes.CLASS_FIELDS,
                     PhpElementTypes.CLASS_REFERENCES_GROUP,
                     PhpElementTypes.GROUP_STATEMENT,
+                    PhpElementTypes.PARAMETER_LIST,
                     PhpElementTypes.NON_LAZY_GROUP_STATEMENT
                         -> {
                         currentElement = currentElement.parent
@@ -86,7 +100,7 @@ object XPathUtil {
                 currentElement = currentElement.parent
             }
 
-            return "/" + xpathParts.joinToString("/")
+            return xpathParts.joinToString("\\")
         } catch (e: Exception) {
             Logger.getInstance(XPathUtil::class.java).error("Error generating XPath", e)
             return "//error"

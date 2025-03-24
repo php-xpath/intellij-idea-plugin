@@ -14,7 +14,7 @@ import java.awt.Rectangle
 /**
  * Utility class for showing XPath inline hints.
  */
-object XPathInlayHints {
+object XPathInlayHintsProvider {
     private val activeHints = mutableMapOf<Int, MutableList<Inlay<*>>>()
 
     fun showHint(editor: Editor, element: PsiElement) {
@@ -31,9 +31,7 @@ object XPathInlayHints {
         val inlay = inlayModel.addInlineElement(
             lineEndOffset,
             InlayProperties()
-                .showAbove(true)
                 .priority(99)
-                .disableSoftWrapping(false)
                 .showWhenFolded(true),
             XPathHintRenderer(xpath),
         )

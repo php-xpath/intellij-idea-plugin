@@ -1,6 +1,6 @@
 package com.github.xepozz.php.xpath.listeners
 
-import com.github.xepozz.php.xpath.ide.hints.XPathInlayHints
+import com.github.xepozz.php.xpath.ide.hints.XPathInlayHintsProvider
 import com.github.xepozz.php.xpath.util.XPathUtil
 import com.intellij.openapi.editor.event.EditorMouseEvent
 import com.intellij.openapi.editor.event.EditorMouseListener
@@ -23,6 +23,6 @@ class EditorMouseClickListener : EditorMouseListener {
 
         // Show both the alert and the inline hint
         XPathUtil.showXPathAlert(psiElement)
-        XPathInlayHints.showHint(editor, psiElement)
+        XPathInlayHintsProvider.showHint(editor, psiElement)
     }
 }
