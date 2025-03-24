@@ -53,7 +53,7 @@ object XPathUtil {
 
                     PhpElementTypes.CLASS -> {
                         val currentElement = currentElement as PhpClass
-                        "class[@name='${currentElement.fqn}']$position"
+                        "class[@name='${currentElement.name}']$position"
                     }
 
                     PhpElementTypes.NAMESPACE -> {
@@ -70,6 +70,8 @@ object XPathUtil {
                     PhpElementTypes.STATEMENT,
                     PhpElementTypes.ASSIGNMENT_EXPRESSION,
                     PhpElementTypes.CLASS_CONSTANTS,
+                    PhpElementTypes.CLASS_FIELDS,
+                    PhpElementTypes.CLASS_REFERENCES_GROUP,
                     PhpElementTypes.GROUP_STATEMENT,
                     PhpElementTypes.NON_LAZY_GROUP_STATEMENT
                         -> {
